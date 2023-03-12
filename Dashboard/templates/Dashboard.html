@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div>
+
+    <div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{url_for('Dashboard.Dashboard')}}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('Admin.AdminPage')}}">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('Doctor.DoctorPage')}}">Doctor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('Patient.PatientPage')}}">Patient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('Rooms.RoomsPage') }}">Rooms</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search" action="{{ url_for('Dashboard.Logout') }}" method="POST">
+                        <button class="btn btn-outline-primary" type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="m-1 row">
+
+        <div class="col-7 m-1">
+            <div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Today's Appointment</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            {% for i in data %}
+                                <a class="list-group-item list-group-item-action" aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{data[i].name}}</h5>
+                                        <small>{{data[i].time}}</small>
+                                    </div>
+                                    <p class="mb-1">Phone Number : {{data[i].no}}</p>
+                                    <p class="mb-1">Appointment For : {{data[i].appointmentFor}}</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col m-1">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Add Appointment</h6>
+                </div>
+                <div class="card-body">
+                    <form action="./" method="post">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Patient's Name</label>
+                            <input type="text" class="form-control" name="pname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Patient's Age</label>
+                            <input type="number" class="form-control" name="page" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Patient's Number</label>
+                            <input type="number" class="form-control" name="pno" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Appointment For</label>
+                            <input type="text" class="form-control" name="for" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Time</label>
+                            <input type="datetime-local" class="form-control" name="time" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Book</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock content %}

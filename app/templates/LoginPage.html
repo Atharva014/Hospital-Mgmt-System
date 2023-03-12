@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container-fluid bg">
+
+        <div class="pt-2 mb-5">
+            <h1 class="text-white text-center"> Hospital Management System</h1>
+        </div>
+
+        <div class="pt-3 text-center">
+
+            {% with messages = get_flashed_messages(category_filter=['success']) %}
+                {% if messages %}
+                    <div class="alert alert-success" role="alert">
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+                {% with messages = get_flashed_messages(category_filter=['error']) %}
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for message in messages %}
+                            {{message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <div class=" container-fluid card mt-5 mb-5" style="width: 50%;">
+
+                <div class="card-body">
+
+                    <h3 class="card-title m-4">Login</h3>
+                    <div class="container">
+                        <form action="/" method="post">
+                            <div class="mb-3 row">
+                                <label for="exampleInputEmail1" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" name="pass" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2 mb-3">Login</button>
+                        </form>
+                        <form method="post">
+                            <a href="/Register">Register Now</a>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock content%}
